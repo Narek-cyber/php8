@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="e4791420-3730-4204-97a2-5bb69dc57f74" name="openserver-6" url="https://php-8-.com/">
+        <fileTransfer rootFolder="C:\OSPanel\home\php-8-.com" accessType="SFTP" sshConfigId="aec61663-6098-426c-90b3-e3dddf352426" sshConfig="openserver-6">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
