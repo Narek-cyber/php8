@@ -1,4 +1,6 @@
 AddCharset UTF-8 .html
+RewriteEngine On
+RewriteRule (.*) public/$1
 <FilesMatch "\.(html)$">
    Header set Cache-Control: "no-cache, no-store"
    Header unset ETag
