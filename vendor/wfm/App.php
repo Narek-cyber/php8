@@ -11,6 +11,7 @@ class App
 
     public function __construct()
     {
+        new ErrorHandler();
         self::$app = Registry::getInstance();
         $this->getParams();
     }
