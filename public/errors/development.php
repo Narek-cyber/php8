@@ -1,6 +1,5 @@
 <?php
-
-use wfm\ErrorHandler;
+use Wfm\ErrorHandler;
 /**
  * @var $errNo ErrorHandler
  * @var $errStr ErrorHandler

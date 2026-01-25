@@ -1,13 +1,13 @@
 <?php
 
 if (PHP_MAJOR_VERSION < 8) {
-    die('Required PHP version >= 8');
+    die('Required version PHP >= 8');
 }
 
 require_once dirname(__DIR__) . '/config/init.php';
+require_once HELPERS . '/functions.php';
+require_once CONFIG . '/routes.php';
 
-new \wfm\App();
+new \Wfm\App();
 
-throw new Exception('An error has occurred!', 404);
-echo 'Hello!';
-echo $test;
+//debug(\Wfm\Router::getRoutes());
