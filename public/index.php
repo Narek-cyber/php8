@@ -10,4 +10,4 @@ require_once CONFIG . '/routes.php';
 
 new \Wfm\App();
 
-//debug(\Wfm\Router::getRoutes());
+debug(\Wfm\Router::getRoutes());

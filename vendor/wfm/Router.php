@@ -1,6 +1,9 @@
 <?php
 
 namespace Wfm;
+
+use Exception;
+
 class Router
 {
     /**
@@ -14,10 +17,10 @@ class Router
 
     /**
      * @param $regexp
-     * @param array $route
+     * @param $route
      * @return void
      */
-    public static function add($regexp, array $route = []): void
+    public static function add($regexp, $route = []): void
     {
         self::$routes[$regexp] = $route;
     }
@@ -41,13 +44,26 @@ class Router
     /**
      * @param $url
      * @return void
+     * @throws Exception
      */
     public static function dispatch($url): void
     {
         if (self::matchRoute($url)) {
-            echo 'OK';
+            $controller = 'App\Controllers\\' . self::$route['admin_prefix'] . self::$route['controller'] . 'Controller';
+            if (class_exists($controller)) {
+                $controllerObject = new $controller(self::$route);
+                $action = self::lowerCamelCase(self::$route['action'] . 'Action');
+                if (method_exists($controllerObject, $action)) {
+                    $controllerObject->$action();
+                } else {
+                    throw new Exception("Method $controller::$action not found.", 404);
+                }
+            } else {
+                throw new Exception("Controller $controller not found.", 404);
+            }
+
         } else {
-            echo 'NO';
+            throw new Exception("Page not found.", 404);
         }
     }
 
@@ -72,13 +88,12 @@ class Router
                 if (!isset($route['admin_prefix'])) {
                     $route['admin_prefix'] = '';
                 } else {
-                    $route['admin_prefix'] = '\\';
+                    $route['admin_prefix'] .= '\\';
                 }
 
-                debug($route);
                 $route['controller'] = self::upperCamelCase($route['controller']);
+                self::$route = $route;
 
-                debug($route);
                 return true;
             }
         }

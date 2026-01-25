@@ -1,3 +1,11 @@
 [2026-01-24 20:18:04] Error message: An error has occurred! | File: C:\OSPanel\home\php-8.com\public\index.php | Line: 15
 =================[2026-01-24 20:31:19] Error message: An error has occurred! | File: C:\OSPanel\home\php-8.com\public\index.php | Line: 11
 
+[2026-01-26 00:02:56] Error message: Page not found. | File: C:\OSPanel\home\php-8.com\vendor\wfm\Router.php | Line: 66
+=================
+[2026-01-26 00:03:11] Error message: Controller app\Controllers\MainController not found. | File: C:\OSPanel\home\php-8.com\vendor\wfm\Router.php | Line: 62
+=================
+[2026-01-26 00:03:13] Error message: Controller app\Controllers\MainController not found. | File: C:\OSPanel\home\php-8.com\vendor\wfm\Router.php | Line: 62
+=================
+[2026-01-26 00:05:13] Error message: Page not found. | File: C:\OSPanel\home\php-8.com\vendor\wfm\Router.php | Line: 66
+=================
