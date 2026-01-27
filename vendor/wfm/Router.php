@@ -17,10 +17,10 @@ class Router
 
     /**
      * @param $regexp
-     * @param $route
+     * @param array $route
      * @return void
      */
-    public static function add($regexp, $route = []): void
+    public static function add($regexp, array $route = []): void
     {
         self::$routes[$regexp] = $route;
     }
