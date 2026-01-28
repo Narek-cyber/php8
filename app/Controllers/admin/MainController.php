@@ -2,7 +2,9 @@
 
 namespace App\Controllers\admin;
 
-class MainController
+use Wfm\Controller;
+
+class MainController extends Controller
 {
     /**
      * @return void

@@ -67,17 +67,20 @@ class Router
         if (self::matchRoute($url)) {
             $controller = 'App\Controllers\\' . self::$route['admin_prefix'] . self::$route['controller'] . 'Controller';
             if (class_exists($controller)) {
+                /** @var Controller $controllerObject */
                 $controllerObject = new $controller(self::$route);
+                $controllerObject->getModel();
                 $action = self::lowerCamelCase(self::$route['action'] . 'Action');
+
                 if (method_exists($controllerObject, $action)) {
                     $controllerObject->$action();
+                    $controllerObject->getView();
                 } else {
                     throw new Exception("Method $controller::$action not found.", 404);
                 }
             } else {
                 throw new Exception("Controller $controller not found.", 404);
             }
-
         } else {
             throw new Exception("Page not found.", 404);
         }
@@ -90,7 +93,7 @@ class Router
     public static function matchRoute($url): bool
     {
         foreach (self::$routes as $pattern => $route) {
-            if (preg_match("#$pattern#", $url, $matches)) {
+            if (preg_match("#{$pattern}#", $url, $matches)) {
                 foreach ($matches as $k => $v) {
                     if (is_string($k)) {
                         $route[$k] = $v;

@@ -2,6 +2,8 @@
 
 namespace Wfm;
 
+use Exception;
+
 abstract class Controller
 {
     /**
@@ -25,7 +27,10 @@ abstract class Controller
      */
     public object $model;
 
-    public function __construct(public $route = [])
+    /**
+     * @param array $route
+     */
+    public function __construct(public array $route = [])
     {
 
     }
@@ -43,11 +48,12 @@ abstract class Controller
 
     /**
      * @return void
+     * @throws Exception
      */
     public function getView(): void
     {
         $this->view = $this->view ?: $this->route['action'];
-
+        (new View($this->route, $this->layout, $this->view, $this->meta))->render($this->data);
     }
 
     /**

@@ -11,6 +11,7 @@ class MainController extends Controller
      */
     public function indexAction(): void
     {
-        echo __METHOD__;
+//        echo __METHOD__;
+//        $this->layout = 'default';
     }
 }
