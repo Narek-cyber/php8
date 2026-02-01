@@ -4,6 +4,7 @@ namespace Wfm;
 
 use Exception;
 use JetBrains\PhpStorm\Pure;
+use RedBeanPHP\R;
 
 class View
 {
@@ -72,5 +73,43 @@ class View
         $out .= '<meta name="description" content="' . h($this->meta['description']) . '">' . PHP_EOL;
         $out .= '<meta name="keywords" content="' . h($this->meta['keywords']) . '">' . PHP_EOL;
         return $out;
+    }
+
+    /**
+     * @return void
+     */
+    public function getDbLogs(): void
+    {
+        if (DEBUG) {
+            $logs = R::getDatabaseAdapter()
+                ->getDatabase()
+                ->getLogger();
+            $logs = array_merge(
+                $logs->grep('SELECT'),
+                $logs->grep('select'),
+                $logs->grep('INSERT'),
+                $logs->grep('UPDATE'),
+                $logs->grep('DELETE')
+            );
+            debug($logs);
+        }
+    }
+
+    /**
+     * @param $file
+     * @param $data
+     * @return void
+     */
+    public function getPart($file, $data = null): void
+    {
+        if (is_array($data)) {
+            extract($data);
+        }
+        $file = APP . "/views/$file.php";
+        if (is_file($file)) {
+            require $file;
+        } else {
+            echo "File $file not found...";
+        }
     }
 }

@@ -13,7 +13,7 @@ abstract class Controller
     /**
      * @var array
      */
-    public array $meta = [];
+    public array $meta = ['title' => '', 'keywords' => '', 'description' => ''];
     /**
      * @var false|string
      */
