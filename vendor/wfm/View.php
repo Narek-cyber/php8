@@ -3,7 +3,6 @@
 namespace Wfm;
 
 use Exception;
-use JetBrains\PhpStorm\Pure;
 use RedBeanPHP\R;
 
 class View

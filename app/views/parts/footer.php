@@ -1,5 +1,5 @@
 <?php
-use wfm\View;
+use Wfm\View;
 /** @var $this View */
 ?>
 <footer>
@@ -104,9 +104,7 @@ use wfm\View;
     </div>
 </div>
 
-<?php
-//$this->getDbLogs();
-?>
+<?php //$this->getDbLogs(); ?>
 
 <script>
     const PATH = '<?= PATH ?>';

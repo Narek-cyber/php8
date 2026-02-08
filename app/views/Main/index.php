@@ -4,7 +4,6 @@ use Wfm\View;
 ?>
 <?php if (!empty($slides)): ?>
     <div class="container-fluid my-carousel">
-
         <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel"
              data-bs-interval="5000">
             <div class="carousel-indicators">
@@ -44,9 +43,7 @@ use Wfm\View;
                 <div class="col-12">
                     <h3 class="section-title">Рекомендуемые товары</h3>
                 </div>
-
                 <?php $this->getPart('parts/products_loop', compact('products')); ?>
-
             </div>
         </div>
     </section>
@@ -86,7 +83,6 @@ use Wfm\View;
                     <p>Профессиональная консультация и сервис</p>
                 </div>
             </div>
-
         </div>
     </div>
 </section>

@@ -6,18 +6,22 @@ use App\Models\AppModel;
 use App\widgets\language\Language;
 use Wfm\App;
 use Wfm\Controller;
+use Exception;
 
 class AppController extends Controller
 {
     /**
-     * @param $route
+     * @throws Exception
      */
     public function __construct($route)
     {
         parent::__construct($route);
         new AppModel();
-
         App::$app->setProperty('languages', Language::getLanguages());
-        debug(App::$app->getProperty('languages'));
+        App::$app->setProperty(
+            'language',
+                Language::getLanguage(App::$app->getProperty('languages')
+            )
+        );
     }
 }

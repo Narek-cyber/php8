@@ -10,18 +10,22 @@ abstract class Controller
      * @var array
      */
     public array $data = [];
+
     /**
      * @var array
      */
     public array $meta = ['title' => '', 'keywords' => '', 'description' => ''];
+
     /**
      * @var false|string
      */
     public false|string $layout = '';
+
     /**
      * @var string
      */
     public string $view = '';
+
     /**
      * @var object
      */
