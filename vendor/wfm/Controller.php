@@ -3,6 +3,7 @@
 namespace Wfm;
 
 use Exception;
+use JetBrains\PhpStorm\NoReturn;
 
 abstract class Controller
 {
@@ -94,5 +95,19 @@ abstract class Controller
     public function isAjax(): bool
     {
         return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
+    }
+
+    /**
+     * @param $view
+     * @param array $vars
+     * @return void
+     */
+    #[NoReturn]
+    public function loadView($view, array $vars = []): void
+    {
+        extract($vars);
+        $prefix = str_replace('\\', '/', $this->route['admin_prefix']);
+        require APP . "/views/$prefix{$this->route['controller']}/{$view}.php";
+        die;
     }
 }

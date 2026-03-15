@@ -1,5 +1,17 @@
 $(function () {
     // CART
+    function showCart(cart) {
+        $('#cart-modal .modal-cart-content').html(cart);
+        const myModalEl = document.querySelector('#cart-modal');
+        const modal = bootstrap.Modal.getOrCreateInstance(myModalEl);
+        modal.show();
+    }
+    const cartModal = document.getElementById('cart-modal');
+
+    cartModal.addEventListener('hidden.bs.modal', function () {
+        document.body.focus();
+    });
+
     $('.add-to-cart').on('click', function (e) {
         e.preventDefault();
         const id = $(this).data('id');
@@ -11,7 +23,7 @@ $(function () {
             type: 'GET',
             data: {id: id, qty: qty},
             success: function (res) {
-                console.log(res)
+                showCart(res)
             },
             error: function () {
                 alert('Error!');

@@ -6,6 +6,11 @@ use RedBeanPHP\R;
 
 class Cart extends AppModel
 {
+    /**
+     * @param $id
+     * @param $lang
+     * @return array
+     */
     public function get_product($id, $lang): array
     {
         return R::getRow(
