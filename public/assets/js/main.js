@@ -5,7 +5,7 @@ $(function () {
         const id = $(this).data('id');
         const qty = $('#input-quantity').val() ? $('#input-quantity').val() : 1;
         const $this = $(this);
-        console.log(id, qty);
+
         $.ajax({
             url: 'cart/add',
             type: 'GET',
