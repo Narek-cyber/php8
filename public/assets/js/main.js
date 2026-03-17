@@ -5,11 +5,55 @@ $(function () {
         const myModalEl = document.querySelector('#cart-modal');
         const modal = bootstrap.Modal.getOrCreateInstance(myModalEl);
         modal.show();
-    }
-    const cartModal = document.getElementById('cart-modal');
 
-    cartModal.addEventListener('hidden.bs.modal', function () {
-        document.body.focus();
+        if ($('.cart-qty').text()) {
+            $('.count-items').text($('.cart-qty').text());
+        } else {
+            $('.count-items').text('0');
+        }
+    }
+
+    $('#get-cart').on('click', function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: 'cart/show',
+            type: 'GET',
+            success: function (res) {
+                showCart(res);
+            },
+            error: function () {
+                alert('Error!');
+            }
+        });
+    });
+
+    $('#cart-modal .modal-cart-content').on('click', '.del-item', function (e) {
+        e.preventDefault();
+        const id = $(this).data('id');
+        $.ajax({
+            url: 'cart/delete',
+            type: 'GET',
+            data: {id: id},
+            success: function (res) {
+                showCart(res);
+            },
+            error: function () {
+                alert('Error!');
+            }
+        });
+    });
+
+    $('#cart-modal .modal-cart-content').on('click', '#clear-cart', function () {
+        $.ajax({
+            url: 'cart/clear',
+            type: 'GET',
+            success: function (res) {
+                showCart(res);
+            },
+            error: function () {
+                alert('Error!');
+            }
+        });
     });
 
     $('.add-to-cart').on('click', function (e) {
@@ -23,7 +67,8 @@ $(function () {
             type: 'GET',
             data: {id: id, qty: qty},
             success: function (res) {
-                showCart(res)
+                showCart(res);
+                $this.find('i').removeClass('fa-shopping-cart').addClass('fa-luggage-cart');
             },
             error: function () {
                 alert('Error!');
@@ -36,6 +81,7 @@ $(function () {
         e.preventDefault();
         $('#search').addClass('active');
     });
+
     $('.close-search').click(function () {
         $('#search').removeClass('active');
     });

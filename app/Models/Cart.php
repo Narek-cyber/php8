@@ -54,6 +54,43 @@ class Cart extends AppModel
         $_SESSION['cart.sum'] = !empty($_SESSION['cart.sum']) ? $_SESSION['cart.sum'] + $qty * $product['price'] : $qty * $product['price'];
         return true;
     }
+
+    /**
+     * @param $id
+     * @return void
+     */
+    public function delete_item($id): void
+    {
+        $qty_minus = $_SESSION['cart'][$id]['qty'];
+        $sum_minus = $_SESSION['cart'][$id]['qty'] * $_SESSION['cart'][$id]['price'];
+        $_SESSION['cart.qty'] -= $qty_minus;
+        $_SESSION['cart.sum'] -= $sum_minus;
+        unset($_SESSION['cart'][$id]);
+    }
+
+    /**
+     * @param $lang
+     * @return void
+     */
+    public static function translate_cart($lang): void
+    {
+        if (empty($_SESSION['cart'])) {
+            return;
+        }
+
+        $ids = implode(',', array_keys($_SESSION['cart']));
+
+        $products = R::getAll("SELECT p.id, pd.title 
+                                    FROM product p 
+                                        JOIN product_description pd 
+                                            ON p.id = pd.product_id 
+                                                WHERE p.id IN ($ids) 
+                                                  AND pd.language_id = ?", [$lang['id']]);
+
+        foreach ($products as $product) {
+            $_SESSION['cart'][$product['id']]['title'] = $product['title'];
+        }
+    }
 }
 
 /*Array
