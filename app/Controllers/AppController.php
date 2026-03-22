@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\AppModel;
 use App\widgets\language\Language;
+use RedBeanPHP\R;
 use Wfm\App;
 use Wfm\Controller;
 use Exception;
@@ -25,5 +26,11 @@ class AppController extends Controller
         );
         $lang = App::$app->getProperty('language');
         \Wfm\Language::load($lang['code'], $this->route);
+
+        $categories = R::getAssoc("SELECT c.*, cd.* FROM category c 
+                        JOIN category_description cd
+                        ON c.id = cd.category_id
+                        WHERE cd.language_id = ?", [$lang['id']]);
+        App::$app->setProperty("categories_{$lang['code']}", $categories);
     }
 }

@@ -7,9 +7,7 @@ use Wfm\View;
 <div class="container">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-light p-2">
-            <li class="breadcrumb-item"><a href="index.html"><i class="fas fa-home"></i></a></li>
-            <li class="breadcrumb-item"><a href="#">Ноутбуки</a></li>
-            <li class="breadcrumb-item active" aria-current="page">MacBook</li>
+            <?= $breadcrumbs ?>
         </ol>
     </nav>
 </div>
@@ -17,11 +15,8 @@ use Wfm\View;
 
 <div class="container py-3">
     <div class="row">
-
         <div class="col-md-4 order-md-2">
-
             <h1><?= $product['title'] ?></h1>
-
             <ul class="list-unstyled">
                 <li><i class="fas fa-check text-success"></i> В наличии</li>
                 <li><i class="fas fa-shipping-fast text-muted"></i> Ожидается</li>
@@ -44,18 +39,13 @@ use Wfm\View;
         </div>
 
         <div class="col-md-8 order-md-1">
-
             <ul class="thumbnails list-unstyled clearfix">
-
                 <li class="thumb-main text-center"><a class="thumbnail" href="<?= PATH . $product['img'] ?>"
-                                                      data-effect="mfp-zoom-in"><img src="<?= PATH . $product['img'] ?>"
-                                                                                     alt=""></a></li>
+                                                      data-effect="mfp-zoom-in"><img src="<?= PATH . $product['img'] ?>" alt=""></a></li>
 
                 <?php if (!empty($gallery)): ?>
                     <?php foreach ($gallery as $item): ?>
-                        <li class="thumb-additional"><a class="thumbnail" href="<?= PATH . $item['img'] ?>"
-                                                        data-effect="mfp-zoom-in"><img src="<?= PATH . $item['img'] ?>"
-                                                                                       alt=""></a>
+                        <li class="thumb-additional"><a class="thumbnail" href="<?= PATH . $item['img'] ?>" data-effect="mfp-zoom-in"><img src="<?= PATH . $item['img'] ?>" alt=""></a>
                         </li>
                     <?php endforeach; ?>
                 <?php endif; ?>

@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\Breadcrumbs;
 use App\Models\Product;
 use Wfm\App;
 use Exception;
@@ -21,8 +22,10 @@ class ProductController extends AppController
             throw new Exception("Товар по запросу {$this->route['slug']} не найден", 404);
         }
 
+        $breadcrumbs = Breadcrumbs::getBreadcrumbs($product['category_id'], $product['title']);
+
         $gallery = $this->model->get_gallery($product['id']);
         $this->setMeta($product['title'] ?? '', $product['description'] ?? '', $product['keywords'] ?? '');
-        $this->set(compact('product', 'gallery'));
+        $this->set(compact('product', 'gallery', 'breadcrumbs'));
     }
 }
