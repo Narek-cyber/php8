@@ -68,8 +68,13 @@ use Wfm\View;
                             <i class="far fa-user"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Авторизация</a></li>
-                            <li><a class="dropdown-item" href="#">Регистрация</a></li>
+                            <?php if (empty($_SESSION['user'])): ?>
+                                <li><a class="dropdown-item" href="#"><?php __('tpl_login'); ?></a></li>
+                                <li><a class="dropdown-item" href="#"><?php __('tpl_signup'); ?></a></li>
+                            <?php else: ?>
+                                <li><a class="dropdown-item" href="#"><?php __('tpl_cabinet'); ?></a></li>
+                                <li><a class="dropdown-item" href="#"><?php __('tpl_logout'); ?></a></li>
+                            <?php endif; ?>
                         </ul>
                     </div>
                     <?php new \App\Widgets\language\Language() ?>
@@ -80,7 +85,6 @@ use Wfm\View;
 
     <div class="header-bottom py-2">
         <div class="container">
-
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container-fluid p-0">
                     <a class="navbar-brand" href="<?= base_url() ?>"><?= \Wfm\App::$app->getProperty('site_name') ?></a>
@@ -90,8 +94,8 @@ use Wfm\View;
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <?php new \App\Widgets\menu\Menu([
-                                'class' => 'navbar-nav ms-auto mb-2 mb-lg-0',
-                                'cache' => 30,
+                            'class' => 'navbar-nav ms-auto mb-2 mb-lg-0',
+                            'cache' => 30,
                         ]) ?>
                     </div>
                 </div>

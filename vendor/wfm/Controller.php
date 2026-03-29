@@ -110,4 +110,18 @@ abstract class Controller
         require APP . "/views/$prefix{$this->route['controller']}/{$view}.php";
         die;
     }
+
+    /**
+     * @param string $folder
+     * @param int $view
+     * @param int $response
+     * @return void
+     */
+    public function error_404(string $folder = 'Error', int $view = 404, int $response = 404): void
+    {
+        http_response_code($response);
+        $this->setMeta(___('tpl_error_404'));
+        $this->route['controller'] = $folder;
+        $this->view = $view;
+    }
 }
