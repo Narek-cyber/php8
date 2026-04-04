@@ -28,7 +28,8 @@ class CategoryController extends AppController
         $ids = !$ids ? $category['id'] : $ids . $category['id'];
 
         $page = get('page');
-        $perpage = App::$app->getProperty('pagination');
+//        $perpage = App::$app->getProperty('pagination');
+        $perpage = $this->model->getPerPage();
         $total = $this->model->get_count_products($ids);
         $pagination = new Pagination($page, $perpage, $total);
         $start = $pagination->getStart();

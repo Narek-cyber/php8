@@ -60,6 +60,21 @@ class Category extends AppModel
         return R::getAll("SELECT p.*, pd.* FROM product p JOIN product_description pd on p.id = pd.product_id WHERE p.status = 1 AND p.category_id IN ($ids) AND pd.language_id = ? $order_by LIMIT $start, $perpage", [$lang['id']]);
     }
 
+    /**
+     * @return int
+     */
+    public function getPerPage(): int
+    {
+        $allowedPerPage = [5, 10, 15, 20, 100];
+
+        $perpage = (int)($_GET['perpage'] ?? 0);
+
+        if (!$perpage || !in_array($perpage, $allowedPerPage, true)) {
+            $perpage = (int)App::$app->getProperty('pagination');
+        }
+
+        return $perpage;
+    }
 
     /**
      * @param $ids

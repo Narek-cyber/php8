@@ -77,8 +77,40 @@ $(function () {
     });
     // CART
 
+    // $('#input-sort').on('change', function () {
+    //     window.location = PATH + window.location.pathname + '?' + $(this).val();
+    // });
+
+    // $('#input-limit').on('change', function () {
+    //     window.location = PATH + window.location.pathname + '?' + $(this).val();
+    // });
+
     $('#input-sort').on('change', function () {
-        window.location = PATH + window.location.pathname + '?' + $(this).val();
+        const url = new URL(window.location.href);
+        const value = $(this).val();
+
+        if (value) {
+            url.searchParams.set('sort', value);
+        } else {
+            url.searchParams.delete('sort');
+        }
+
+        url.searchParams.delete('page');
+        window.location = url.toString();
+    });
+
+    $('#input-limit').on('change', function () {
+        const url = new URL(window.location.href);
+        const value = $(this).val();
+
+        if (value) {
+            url.searchParams.set('perpage', value);
+        } else {
+            url.searchParams.delete('perpage');
+        }
+
+        url.searchParams.delete('page');
+        window.location = url.toString();
     });
 
     $('.open-search').click(function (e) {

@@ -34,26 +34,34 @@ use wfm\View;
                         <div class="input-group mb-3">
                             <label class="input-group-text" for="input-sort"><?php __('category_view_sort'); ?>:</label>
                             <select class="form-select" id="input-sort">
-                                <option selected=""><?php __('category_view_sort_by_default'); ?></option>
-                                <option value="sort=title_asc" <?php if (isset($_GET['sort']) && $_GET['sort'] == 'title_asc') echo 'selected' ?>><?php __('category_view_sort_title_asc'); ?></option>
-                                <option value="sort=title_desc" <?php if (isset($_GET['sort']) && $_GET['sort'] == 'title_desc') echo 'selected' ?>><?php __('category_view_sort_title_desc'); ?></option>
-                                <option value="sort=price_asc" <?php if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') echo 'selected' ?>><?php __('category_view_sort_price_asc'); ?></option>
-                                <option value="sort=price_desc" <?php if (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') echo 'selected' ?>><?php __('category_view_sort_price_desc'); ?></option>
+                                <option value=""><?php __('category_view_sort_by_default'); ?></option>
+                                <option value="title_asc" <?php if (isset($_GET['sort']) && $_GET['sort'] == 'title_asc') echo 'selected'; ?>>
+                                    <?php __('category_view_sort_title_asc'); ?>
+                                </option>
+                                <option value="title_desc" <?php if (isset($_GET['sort']) && $_GET['sort'] == 'title_desc') echo 'selected'; ?>>
+                                    <?php __('category_view_sort_title_desc'); ?>
+                                </option>
+                                <option value="price_asc" <?php if (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') echo 'selected'; ?>>
+                                    <?php __('category_view_sort_price_asc'); ?>
+                                </option>
+                                <option value="price_desc" <?php if (isset($_GET['sort']) && $_GET['sort'] == 'price_desc') echo 'selected'; ?>>
+                                    <?php __('category_view_sort_price_desc'); ?>
+                                </option>
                             </select>
                         </div>
                     </div>
-<!--                    <div class="col-sm-6">-->
-<!--                        <div class="input-group mb-3">-->
-<!--                            <label class="input-group-text" for="input-sort">Показать:</label>-->
-<!--                            <select class="form-select" id="input-sort">-->
-<!--                                <option selected="">15</option>-->
-<!--                                <option value="1">25</option>-->
-<!--                                <option value="2">50</option>-->
-<!--                                <option value="3">75</option>-->
-<!--                                <option value="3">100</option>-->
-<!--                            </select>-->
-<!--                        </div>-->
-<!--                    </div>-->
+                    <div class="col-sm-6">
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="input-limit">Показать:</label>
+                            <select class="form-select" id="input-limit">
+                                <option value="5" <?php if (isset($_GET['perpage']) && $_GET['perpage'] == 5) echo 'selected'; ?>>5</option>
+                                <option value="10" <?php if (isset($_GET['perpage']) && $_GET['perpage'] == 10) echo 'selected'; ?>>10</option>
+                                <option value="15" <?php if (isset($_GET['perpage']) && $_GET['perpage'] == 15) echo 'selected'; ?>>15</option>
+                                <option value="20" <?php if (isset($_GET['perpage']) && $_GET['perpage'] == 20) echo 'selected'; ?>>20</option>
+                                <option value="100" <?php if (isset($_GET['perpage']) && $_GET['perpage'] == 100) echo 'selected'; ?>>100</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             <?php endif; ?>
 
