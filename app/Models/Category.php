@@ -14,11 +14,7 @@ class Category extends AppModel
      */
     public function get_category($slug, $lang): array
     {
-        return R::getRow("SELECT c.*, cd.* FROM category c 
-                                JOIN category_description cd 
-                                    on c.id = cd.category_id 
-                                        WHERE c.slug = ? AND cd.language_id = ?", [$slug, $lang['id']
-        ]);
+        return R::getRow("SELECT c.*, cd.* FROM category c JOIN category_description cd on c.id = cd.category_id WHERE c.slug = ? AND cd.language_id = ?", [$slug, $lang['id']]);
     }
 
     /**
@@ -42,17 +38,21 @@ class Category extends AppModel
     /**
      * @param $ids
      * @param $lang
+     * @param $start
+     * @param $perpage
      * @return array
      */
-    public function get_products($ids, $lang): array
+    public function get_products($ids, $lang, $start, $perpage): array
     {
-        return R::getAll("SELECT p.*, pd.* FROM product p 
-                                JOIN product_description pd 
-                                    on p.id = pd.product_id 
-                                        WHERE p.status = 1 
-                                          AND p.category_id 
-                                                  IN ($ids) 
-                                          AND pd.language_id = ?", [$lang['id']
-        ]);
+        return R::getAll("SELECT p.*, pd.* FROM product p JOIN product_description pd on p.id = pd.product_id WHERE p.status = 1 AND p.category_id IN ($ids) AND pd.language_id = ? LIMIT $start, $perpage", [$lang['id']]);
+    }
+
+    /**
+     * @param $ids
+     * @return int
+     */
+    public function get_count_products($ids): int
+    {
+        return R::count('product', "category_id IN ($ids)");
     }
 }
