@@ -34,7 +34,7 @@ use wfm\View;
                         <div class="input-group mb-3">
                             <label class="input-group-text" for="input-sort"><?php __('category_view_sort'); ?>:</label>
                             <select class="form-select" id="input-sort">
-                                <option value=""><?php __('category_view_sort_by_default'); ?></option>
+                                <option value="" selected disabled><?php __('category_view_sort_by_default'); ?></option>
                                 <option value="title_asc" <?php if (isset($_GET['sort']) && $_GET['sort'] == 'title_asc') echo 'selected'; ?>>
                                     <?php __('category_view_sort_title_asc'); ?>
                                 </option>

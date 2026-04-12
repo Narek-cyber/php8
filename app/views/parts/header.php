@@ -29,7 +29,7 @@ use Wfm\View;
                     </a>
                 </div>
                 <div class="col text-end icons">
-                    <form>
+                    <form action="search">
                         <div class="input-group" id="search">
                             <input
                                 type="text"
