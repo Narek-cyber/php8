@@ -157,4 +157,22 @@ $(function () {
         const lang_code = $(this).data('lang-code');
         window.location = PATH + '/language/change?lang=' + lang_code;
     });
+
+    $('.product-card').on('click', '.add-to-wishlist', function (e) {
+        e.preventDefault();
+        const id = $(this).data('id');
+        const $this = $(this);
+        $.ajax({
+            url: 'wishlist/add',
+            type: 'GET',
+            data: {id: id},
+            success: function (res) {
+                res = JSON.parse(res);
+                console.log(res);
+            },
+            error: function () {
+                alert('Error!');
+            }
+        });
+    });
 });
