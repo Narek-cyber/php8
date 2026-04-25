@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\AppModel;
+use App\Models\Wishlist;
 use App\widgets\language\Language;
 use RedBeanPHP\R;
 use Wfm\App;
@@ -32,5 +33,6 @@ class AppController extends Controller
                         ON c.id = cd.category_id
                         WHERE cd.language_id = ?", [$lang['id']]);
         App::$app->setProperty("categories_{$lang['code']}", $categories);
+        App::$app->setProperty('wishlist', Wishlist::get_wishlist_ids());
     }
 }

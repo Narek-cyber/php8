@@ -4,10 +4,22 @@ namespace App\Controllers;
 
 use App\Models\Wishlist;
 use JetBrains\PhpStorm\NoReturn;
+use Wfm\App;
 
 /** @property Wishlist $model */
 class WishlistController extends AppController
 {
+    /**
+     * @return void
+     */
+    public function indexAction(): void
+    {
+        $lang = App::$app->getProperty('language');
+        $products = $this->model->get_wishlist_products($lang);
+        $this->setMeta(___('wishlist_index_title'));
+        $this->set(compact('products'));
+    }
+
     /**
      * @return void
      */
