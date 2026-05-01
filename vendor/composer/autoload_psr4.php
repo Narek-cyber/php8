@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Wfm\\' => array($vendorDir . '/wfm'),
+    'Valitron\\' => array($vendorDir . '/vlucas/valitron/src/Valitron'),
     'RedBeanPHP\\' => array($vendorDir . '/gabordemooij/redbean/RedBeanPHP'),
     'App\\' => array($baseDir . '/app'),
 );
