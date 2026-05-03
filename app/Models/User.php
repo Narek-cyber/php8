@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use RedBeanPHP\R;
+
 class User extends AppModel
 {
     /**
@@ -42,5 +44,21 @@ class User extends AppModel
     public static function checkAuth(): bool
     {
         return isset($_SESSION['user']);
+    }
+
+    /**
+     * @param string $text_error
+     * @return bool
+     */
+    public function checkUnique(string $text_error = ''): bool
+    {
+        $user = R::findOne('user', 'email = ?', [$this->attributes['email']]);
+
+        if ($user) {
+            $this->errors['unique'][] = $text_error ?: ___('user_signup_error_email_unique');
+            return false;
+        }
+
+        return true;
     }
 }

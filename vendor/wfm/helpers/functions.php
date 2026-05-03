@@ -1,6 +1,13 @@
 <?php
 
-function debug($data, $die = false)
+use JetBrains\PhpStorm\NoReturn;
+
+/**
+ * @param $data
+ * @param bool $die
+ * @return void
+ */
+function debug($data, bool $die = false): void
 {
     echo '<pre>' . print_r($data, 1) . '</pre>';
     if ($die) {
@@ -8,23 +15,35 @@ function debug($data, $die = false)
     }
 }
 
-function h($str)
+/**
+ * @param $str
+ * @return string
+ */
+function h($str): string
 {
     return htmlspecialchars($str);
 }
 
-function redirect($http = false)
+/**
+ * @param bool $http
+ * @return void
+ */
+#[NoReturn]
+function redirect(bool $http = false): void
 {
     if ($http) {
         $redirect = $http;
     } else {
-        $redirect = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : PATH;
+        $redirect = $_SERVER['HTTP_REFERER'] ?? PATH;
     }
     header("Location: $redirect");
     die;
 }
 
-function base_url()
+/**
+ * @return string
+ */
+function base_url(): string
 {
     return
         PATH . '/' . (\wfm\App::$app->getProperty('lang')
@@ -37,7 +56,7 @@ function base_url()
  * @param string $type Values 'i', 'f', 's'
  * @return float|int|string
  */
-function get($key, $type = 'i')
+function get(string $key, string $type = 'i'): float|int|string
 {
     $param = $key;
     $$param = $_GET[$param] ?? '';
@@ -55,7 +74,7 @@ function get($key, $type = 'i')
  * @param string $type Values 'i', 'f', 's'
  * @return float|int|string
  */
-function post($key, $type = 's')
+function post(string $key, string $type = 's'): float|int|string
 {
     $param = $key;
     $$param = $_POST[$param] ?? '';
@@ -78,7 +97,11 @@ function ___($key)
     return \Wfm\Language::get($key);
 }
 
-function get_cart_icon($id)
+/**
+ * @param $id
+ * @return string
+ */
+function get_cart_icon($id): string
 {
     if (!empty($_SESSION['cart']) && array_key_exists($id, $_SESSION['cart'])) {
         $icon = '<i class="fas fa-luggage-cart"></i>';
@@ -87,3 +110,13 @@ function get_cart_icon($id)
     }
     return $icon;
 }
+
+/**
+ * @param $name
+ * @return string
+ */
+function get_field_value($name): string
+{
+    return isset($_SESSION['form_data'][$name]) ? h($_SESSION['form_data'][$name]) : '';
+}
+

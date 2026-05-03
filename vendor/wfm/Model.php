@@ -2,6 +2,8 @@
 
 namespace Wfm;
 
+use RedBeanPHP\R;
+use RedBeanPHP\RedException\SQL;
 use Valitron\Validator;
 
 abstract class Model
@@ -88,5 +90,21 @@ abstract class Model
         return array_map(function ($v) {
             return ___($v);
         }, $this->labels);
+    }
+
+    /**
+     * @param $table
+     * @return int|string
+     * @throws SQL
+     */
+    public function save($table): int|string
+    {
+        $tbl = R::dispense($table);
+        foreach ($this->attributes as $name => $value) {
+            if ($value != '') {
+                $tbl->$name = $value;
+            }
+        }
+        return R::store($tbl);
     }
 }
