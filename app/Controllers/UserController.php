@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\User;
+use JetBrains\PhpStorm\NoReturn;
 use RedBeanPHP\RedException\SQL;
 
 /** @property User $model */
@@ -35,5 +36,41 @@ class UserController extends AppController
             redirect();
         }
         $this->setMeta(___('tpl_signup'));
+    }
+
+    /**
+     * @return void
+     */
+    public function loginAction(): void
+    {
+        if (User::checkAuth()) {
+            redirect(base_url());
+        }
+
+        if (!empty($_POST)) {
+            if ($this->model->login()) {
+                $_SESSION['success'] = ___('user_login_success_login');
+                redirect(base_url());
+            } else {
+                $data = $_POST;
+                $_SESSION['form_data'] = $data;
+                $_SESSION['errors'] = ___('user_login_error_login');
+                redirect();
+            }
+        }
+
+        $this->setMeta(___('tpl_login'));
+    }
+
+    /**
+     * @return void
+     */
+    #[NoReturn]
+    public function logoutAction(): void
+    {
+        if (User::checkAuth()) {
+            unset($_SESSION['user']);
+        }
+        redirect(base_url() . 'user/login');
     }
 }

@@ -153,10 +153,55 @@ $(function () {
         }
     });
 
+    /* Option_1 */
     $('#languages button').on('click', function () {
         const lang_code = $(this).data('lang-code');
         window.location = PATH + '/language/change?lang=' + lang_code;
     });
+
+    /* Option_2 */
+    // $('#languages button').on('click', function () {
+    //     const langCode = $(this).data('lang-code');
+    //
+    //     let path = window.location.pathname;
+    //
+    //     if (PATH && path.startsWith(PATH)) {
+    //         path = path.substring(PATH.length);
+    //     }
+    //
+    //     path = path.replace(/^\/(ru|en)(?=\/|$)/, '');
+    //
+    //     if (path === '') {
+    //         path = '/';
+    //     }
+    //
+    //     window.location = PATH + '/' + langCode + path + window.location.search;
+    // });
+
+    /* Option_3 */
+    // $('#languages button').on('click', function () {
+    //     const langCode = $(this).data('lang-code');
+    //
+    //     let path = window.location.pathname;
+    //
+    //     if (PATH && path.startsWith(PATH)) {
+    //         path = path.substring(PATH.length);
+    //     }
+    //
+    //     // Убираем старый языковой префикс
+    //     path = path.replace(/^\/(ru|en)(?=\/|$)/, '');
+    //
+    //     if (path === '') {
+    //         path = '/';
+    //     }
+    //
+    //     // ru — базовый язык, поэтому без /ru
+    //     if (langCode === 'ru') {
+    //         window.location = PATH + path + window.location.search;
+    //     } else {
+    //         window.location = PATH + '/' + langCode + path + window.location.search;
+    //     }
+    // });
 
     $('.product-card').on('click', '.add-to-wishlist', function (e) {
         e.preventDefault();

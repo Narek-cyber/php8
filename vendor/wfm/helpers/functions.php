@@ -25,19 +25,16 @@ function h($str): string
 }
 
 /**
- * @param bool $http
+ * @param string|null $http
  * @return void
  */
 #[NoReturn]
-function redirect(bool $http = false): void
+function redirect(?string $http = null): void
 {
-    if ($http) {
-        $redirect = $http;
-    } else {
-        $redirect = $_SERVER['HTTP_REFERER'] ?? PATH;
-    }
-    header("Location: $redirect");
-    die;
+    $redirect = $http ?: ($_SERVER['HTTP_REFERER'] ?? base_url());
+
+    header("Location: {$redirect}");
+    exit;
 }
 
 /**
@@ -46,10 +43,21 @@ function redirect(bool $http = false): void
 function base_url(): string
 {
     return
-        PATH . '/' . (\wfm\App::$app->getProperty('lang')
-            ? \wfm\App::$app->getProperty('lang') . '/'
+        PATH . '/' . (\Wfm\App::$app->getProperty('lang')
+            ? \Wfm\App::$app->getProperty('lang') . '/'
             : '');
 }
+//function base_url(): string
+//{
+//    $language = \Wfm\App::$app->getProperty('language');
+//    $code = $language['code'] ?? 'ru';
+//
+//    if ($code === 'ru') {
+//        return PATH . '/';
+//    }
+//
+//    return PATH . '/' . $code . '/';
+//}
 
 /**
  * @param string $key Key of GET array
