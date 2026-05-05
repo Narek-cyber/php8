@@ -3,7 +3,9 @@
 namespace App\Controllers;
 
 use App\Models\Cart;
+use App\Models\User;
 use JetBrains\PhpStorm\NoReturn;
+use RedBeanPHP\RedException\SQL;
 use Wfm\App;
 
 /** @property Cart $model */
@@ -50,6 +52,7 @@ class CartController extends AppController
     /**
      * @return void
      */
+    #[NoReturn]
     public function deleteAction(): void
     {
         $id = get('id');
@@ -62,7 +65,10 @@ class CartController extends AppController
         redirect();
     }
 
-    public function clearAction()
+    /**
+     * @return bool
+     */
+    public function clearAction(): bool
     {
         if (empty($_SESSION['cart'])) {
             return false;
@@ -72,5 +78,42 @@ class CartController extends AppController
         unset($_SESSION['cart.sum']);
         $this->loadView('cart_modal');
         return true;
+    }
+
+    /**
+     * @return void
+     */
+    public function viewAction(): void
+    {
+        $this->setMeta(___('tpl_cart_title'));
+    }
+
+    /**
+     * @return void
+     * @throws SQL
+     */
+    #[NoReturn]
+    public function checkoutAction(): void
+    {
+        if (!empty($_POST)) {
+            // регистрация пользователя, если не авторизован
+            if (!User::checkAuth()) {
+                $user = new User();
+                $data = $_POST;
+                $user->load($data);
+                if (!$user->validate($data) || !$user->checkUnique()) {
+                    $user->getErrors();
+                    $_SESSION['form_data'] = $data;
+                    redirect();
+                } else {
+                    $user->attributes['password'] = password_hash($user->attributes['password'], PASSWORD_DEFAULT);
+                    if (!$user_id = $user->save('user')) {
+                        $_SESSION['errors'] = ___('cart_checkout_error_register');
+                        redirect();
+                    }
+                }
+            }
+        }
+        redirect();
     }
 }
