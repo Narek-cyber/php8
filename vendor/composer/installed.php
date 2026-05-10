@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '41e58bfe47e9dd8070c53f94c31e4648f10e2095',
+        'reference' => '4e8140919b99f935d390aed7f57041888181029f',
         'name' => '__root__',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '41e58bfe47e9dd8070c53f94c31e4648f10e2095',
+            'reference' => '4e8140919b99f935d390aed7f57041888181029f',
             'dev_requirement' => false,
         ),
         'gabordemooij/redbean' => array(
@@ -26,6 +26,15 @@
             'install_path' => __DIR__ . '/../gabordemooij/redbean',
             'aliases' => array(),
             'reference' => 'fc08c2f9bc5a4f5074721b0d9039881be244f842',
+            'dev_requirement' => false,
+        ),
+        'phpmailer/phpmailer' => array(
+            'pretty_version' => 'v7.0.2',
+            'version' => '7.0.2.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpmailer/phpmailer',
+            'aliases' => array(),
+            'reference' => 'ebf1655bd5b99b3f97e1a3ec0a69e5f4cd7ea088',
             'dev_requirement' => false,
         ),
         'vlucas/valitron' => array(

@@ -19,6 +19,10 @@ class ComposerStaticInit8d070178755c320c69f93ee4800660ef
         array (
             'RedBeanPHP\\' => 11,
         ),
+        'P' => 
+        array (
+            'PHPMailer\\PHPMailer\\' => 20,
+        ),
         'A' => 
         array (
             'App\\' => 4,
@@ -37,6 +41,10 @@ class ComposerStaticInit8d070178755c320c69f93ee4800660ef
         'RedBeanPHP\\' => 
         array (
             0 => __DIR__ . '/..' . '/gabordemooij/redbean/RedBeanPHP',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'App\\' => 
         array (
