@@ -60,10 +60,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <body>
 <div class="wrap">
     <div class="logo">
-        <img src="./errors/images/404.png" alt=""/>
+        <img src="/errors/images/404.png" alt=""/>
         <p>
             <a
-                    href="<?= PATH; ?>"
+                href="<?= PATH; ?>"
             >
                 Go back to home
             </a>
