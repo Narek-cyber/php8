@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\User;
 use JetBrains\PhpStorm\NoReturn;
 use RedBeanPHP\RedException\SQL;
+use Wfm\App;
 use Wfm\Pagination;
 use Exception;
 
@@ -126,5 +127,27 @@ class UserController extends AppController
 
         $this->setMeta(___('user_order_title'));
         $this->set(compact('order'));
+    }
+
+    /**
+     * @return void
+     */
+    public function filesAction(): void
+    {
+        if (!User::checkAuth()) {
+            redirect(base_url() . 'user/login');
+        }
+
+        $lang = App::$app->getProperty('language');
+        $page = get('page');
+        $perpage = App::$app->getProperty('pagination');
+//        $perpage = 1;
+        $total = $this->model->get_count_files();
+        $pagination = new Pagination($page, $perpage, $total);
+        $start = $pagination->getStart();
+
+        $files = $this->model->get_user_files($start, $perpage, $lang);
+        $this->setMeta(___('user_files_title'));
+        $this->set(compact('files', 'pagination', 'total'));
     }
 }
