@@ -34,8 +34,22 @@ abstract class Model
      * @param $data
      * @return void
      */
-    public function load($data): void
+//    public function load($data): void
+//    {
+//        foreach ($this->attributes as $name => $value) {
+//            if (isset($data[$name])) {
+//                $this->attributes[$name] = $data[$name];
+//            }
+//        }
+//    }
+
+    /**
+     * @param bool $post
+     * @return void
+     */
+    public function load(bool $post = true): void
     {
+        $data = $post ? $_POST : $_GET;
         foreach ($this->attributes as $name => $value) {
             if (isset($data[$name])) {
                 $this->attributes[$name] = $data[$name];
@@ -100,6 +114,23 @@ abstract class Model
     public function save($table): int|string
     {
         $tbl = R::dispense($table);
+        foreach ($this->attributes as $name => $value) {
+            if ($value != '') {
+                $tbl->$name = $value;
+            }
+        }
+        return R::store($tbl);
+    }
+
+    /**
+     * @param $table
+     * @param $id
+     * @return int|string
+     * @throws SQL
+     */
+    public function update($table, $id): int|string
+    {
+        $tbl = R::load($table, $id);
         foreach ($this->attributes as $name => $value) {
             if ($value != '') {
                 $tbl->$name = $value;

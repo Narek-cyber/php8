@@ -25,8 +25,8 @@ class User extends AppModel
         'lengthMin' => [
             ['password', 6],
         ],
+        'optional' => ['email', 'password'],
     ];
-
 
     /**
      * @var array|string[]
