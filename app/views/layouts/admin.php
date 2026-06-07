@@ -1,10 +1,10 @@
 <?php /** @var $this ViewAlias */
+    use Wfm\View as ViewAlias;
+?>
 
-use Wfm\View as ViewAlias; ?>
+<?php $this->getPart('admin/parts/header'); ?>
 
-<?php $this->getPart('Admin/parts/header'); ?>
-
-<?php $this->getPart('Admin/parts/sidebar'); ?>
+<?php $this->getPart('admin/parts/sidebar'); ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -21,6 +21,7 @@ use Wfm\View as ViewAlias; ?>
 
     <!-- Main content -->
     <section class="content">
+
         <?php if (!empty($_SESSION['success'])): ?>
             <div class="alert alert-success alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -38,9 +39,10 @@ use Wfm\View as ViewAlias; ?>
         <?php endif; ?>
 
         <?php echo $this->content; ?>
+
     </section>
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
 
-<?php $this->getPart('Admin/parts/footer'); ?>
+<?php $this->getPart('admin/parts/footer'); ?>
