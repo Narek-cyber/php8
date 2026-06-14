@@ -2,6 +2,10 @@
 
 namespace App\Controllers\Admin;
 
+use App\Models\Admin\Category;
+use JetBrains\PhpStorm\NoReturn;
+
+/** @property Category $model */
 class CategoryController extends AppController
 {
     /**
@@ -12,5 +16,35 @@ class CategoryController extends AppController
         $title = 'Категории';
         $this->setMeta("Админка :: $title");
         $this->set(compact('title'));
+    }
+
+    /**
+     * @return void
+     */
+    #[NoReturn]
+    public function deleteAction(): void
+    {
+        $id = get('id');
+        $errors = '';
+        $children = $this->model->get_count_children($id);
+        $products = $this->model->get_count_products($id);
+
+        if ($children) {
+            $errors .= 'Ошибка! В категории есть вложенные категории<br>';
+        }
+
+        if ($products) {
+            $errors .= 'Ошибка! В категории есть товары<br>';
+        }
+
+        if ($errors) {
+            $_SESSION['errors'] = $errors;
+        } else {
+            $this->model->delete_category($id);
+            $this->model->delete_category_description($id);
+            $_SESSION['success'] = 'Категория удалена';
+        }
+
+        redirect();
     }
 }
