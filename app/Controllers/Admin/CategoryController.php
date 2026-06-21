@@ -47,4 +47,24 @@ class CategoryController extends AppController
 
         redirect();
     }
+
+    /**
+     * @return void
+     */
+    public function addAction(): void
+    {
+        if (!empty($_POST)) {
+            if ($this->model->category_validate()) {
+                if ($this->model->save_category()) {
+                    $_SESSION['success'] = 'Категория сохранена';
+                } else {
+                    $_SESSION['errors'] = 'Ошибка!';
+                }
+            }
+            redirect();
+        }
+        $title = 'Добавление категории';
+        $this->setMeta("Админка :: {$title}");
+        $this->set(compact('title'));
+    }
 }

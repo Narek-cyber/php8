@@ -1,6 +1,7 @@
 <?php
 
 use JetBrains\PhpStorm\NoReturn;
+use JetBrains\PhpStorm\Pure;
 
 /**
  * @param $data
@@ -47,6 +48,7 @@ function base_url(): string
             ? \Wfm\App::$app->getProperty('lang') . '/'
             : '');
 }
+
 //function base_url(): string
 //{
 //    $language = \Wfm\App::$app->getProperty('language');
@@ -128,3 +130,17 @@ function get_field_value($name): string
     return isset($_SESSION['form_data'][$name]) ? h($_SESSION['form_data'][$name]) : '';
 }
 
+/**
+ * @param string $name
+ * @param int|string $key
+ * @param string $index
+ * @param string $default
+ * @return string
+ */
+#[Pure]
+function get_field_array_value(string $name, int|string $key, string $index, string $default = ''): string
+{
+    return isset($_SESSION['form_data'][$name][$key][$index])
+        ? h($_SESSION['form_data'][$name][$key][$index])
+        : h($default);
+}
