@@ -5,6 +5,7 @@ namespace App\Models\Admin;
 use App\Models\AppModel;
 use RedBeanPHP\R;
 use Exception;
+use Wfm\App;
 
 class Category extends AppModel
 {
@@ -69,6 +70,7 @@ class Category extends AppModel
      */
     public function save_category(): bool
     {
+        $lang = App::$app->getProperty('language')['id'];
         R::begin();
         try {
             $category = R::dispense('category');
@@ -76,10 +78,9 @@ class Category extends AppModel
             $category_id = R::store($category);
             $category->slug = AppModel::create_slug('category',
                 'slug',
-                $_POST['category_description'][1]['title'],
+                $_POST['category_description'][$lang]['title'],
                 $category_id
             );
-
             R::store($category);
 
             foreach ($_POST['category_description'] as $lang_id => $item) {
