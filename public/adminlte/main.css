@@ -28,6 +28,7 @@ a:hover {
 .select2-container .select2-selection--single {
     height: 38px !important;
 }
+
 .select2-selection__arrow {
     height: 34px !important;
 }
@@ -56,4 +57,14 @@ a:hover {
     left: 0;
     top: 0;
     font-size: 30px;
+}
+
+.card-body td img {
+    max-height: 100px;
+}
+
+label.required::before {
+    content: '* ';
+    color: #F00;
+    font-weight: bold;
 }

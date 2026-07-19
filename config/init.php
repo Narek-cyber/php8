@@ -12,6 +12,6 @@ const CONFIG = ROOT . '/config';
 const LAYOUT = 'ishop';
 const PATH = 'https://php-8.com';
 const ADMIN = 'https://php-8.com/admin';
-const NO_IMAGE = 'uploads/no_image.jpg';
+const NO_IMAGE = '/public/uploads/no_image.jpg';
 
 require_once ROOT . '/vendor/autoload.php';

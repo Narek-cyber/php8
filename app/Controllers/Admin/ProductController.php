@@ -30,10 +30,20 @@ class ProductController extends AppController
         $this->set(compact('title', 'products', 'pagination', 'total'));
     }
 
-    public function addAction()
+    /**
+     * @return void
+     */
+    public function addAction(): void
     {
         if (!empty($_POST)) {
-
+            if ($this->model->product_validate()) {
+                if ($this->model->save_product()) {
+                    $_SESSION['success'] = 'Товар добавлен';
+                } else {
+                    $_SESSION['errors'] = 'Ошибка добавления товара';
+                }
+            }
+            redirect();
         }
 
         $title = 'Новый товар';
