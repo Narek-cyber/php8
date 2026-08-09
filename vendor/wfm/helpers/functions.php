@@ -17,12 +17,12 @@ function debug($data, bool $die = false): void
 }
 
 /**
- * @param $str
+ * @param string|null $str
  * @return string
  */
-function h($str): string
+function h(?string $str): string
 {
-    return htmlspecialchars($str);
+    return htmlspecialchars($str ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
 /**
