@@ -3,6 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Models\Admin\Download;
+use JetBrains\PhpStorm\NoReturn;
 use RedBeanPHP\R;
 use Wfm\App;
 use Wfm\Pagination;
@@ -49,5 +50,28 @@ class DownloadController extends AppController
         $title = 'Добавление файла (цифрового товара)';
         $this->setMeta("Админка :: {$title}");
         $this->set(compact('title'));
+    }
+
+    /**
+     * @return void
+     */
+    #[NoReturn]
+    public function deleteAction(): void
+    {
+        $id = get('id');
+        if (R::count('order_download', 'download_id = ?', [$id])) {
+            $_SESSION['errors'] = 'Невозможно удалить - данный файл уже приобретался';
+            redirect();
+        }
+        if (R::count('product_download', 'download_id = ?', [$id])) {
+            $_SESSION['errors'] = 'Невозможно удалить - данный файл прикреплен к товару';
+            redirect();
+        }
+        if ($this->model->download_delete($id)) {
+            $_SESSION['success'] = 'Файл удален';
+        } else {
+            $_SESSION['errors'] = 'Ошибка удаления файла';
+        }
+        redirect();
     }
 }
