@@ -5,6 +5,7 @@ namespace App\Controllers\Admin;
 use App\Models\Admin\User;
 use JetBrains\PhpStorm\NoReturn;
 use RedBeanPHP\R;
+use RedBeanPHP\RedException\SQL;
 use Wfm\Pagination;
 use Exception;
 
@@ -49,6 +50,44 @@ class UserController extends AppController
         $title = 'Профиль пользователя';
         $this->setMeta("Админка :: {$title}");
         $this->set(compact('title', 'user', 'pagination', 'total', 'orders'));
+    }
+
+    /**
+     * @throws SQL
+     * @throws Exception
+     */
+    public function editAction(): void
+    {
+        $id = get('id');
+        $user = $this->model->get_user($id);
+        if (!$user) {
+            throw new Exception('User not found', 404);
+        }
+
+        if (!empty($_POST)) {
+            $this->model->load();
+            if (empty($this->model->attributes['password'])) {
+                unset($this->model->attributes['password']);
+            }
+
+            if (!$this->model->validate($this->model->attributes) || !$this->model->checkEmail($user)) {
+                $this->model->getErrors();
+            } else {
+                if (!empty($this->model->attributes['password'])) {
+                    $this->model->attributes['password'] = password_hash($this->model->attributes['password'], PASSWORD_DEFAULT);
+                }
+                if ($this->model->update('user', $id)) {
+                    $_SESSION['success'] = 'Данные пользователя обновлены. Перезайдите, если вы обновляли свои данные';
+                } else {
+                    $_SESSION['errors'] = 'Ошибка обновления профиля пользователя';
+                }
+            }
+            redirect();
+        }
+
+        $title = 'Редактирование пользователя';
+        $this->setMeta("Админка :: {$title}");
+        $this->set(compact('title', 'user'));
     }
 
     /**
