@@ -4,10 +4,30 @@ namespace App\Controllers\Admin;
 
 use App\Models\Admin\User;
 use JetBrains\PhpStorm\NoReturn;
+use RedBeanPHP\R;
+use Wfm\Pagination;
 
 /** @property User $model */
 class UserController extends AppController
 {
+
+    /**
+     * @return void
+     */
+    public function indexAction(): void
+    {
+        $page = get('page');
+        $perpage = 20;
+        $total = R::count('user');
+        $pagination = new Pagination($page, $perpage, $total);
+        $start = $pagination->getStart();
+
+        $users = $this->model->get_users($start, $perpage);
+        $title = 'Список пользователей';
+        $this->setMeta("Админка :: {$title}");
+        $this->set(compact('title', 'users', 'pagination', 'total'));
+    }
+
     /**
      * @return void
      */
