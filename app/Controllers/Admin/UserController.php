@@ -6,11 +6,11 @@ use App\Models\Admin\User;
 use JetBrains\PhpStorm\NoReturn;
 use RedBeanPHP\R;
 use Wfm\Pagination;
+use Exception;
 
 /** @property User $model */
 class UserController extends AppController
 {
-
     /**
      * @return void
      */
@@ -26,6 +26,29 @@ class UserController extends AppController
         $title = 'Список пользователей';
         $this->setMeta("Админка :: {$title}");
         $this->set(compact('title', 'users', 'pagination', 'total'));
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function viewAction(): void
+    {
+        $id = get('id');
+        $user = $this->model->get_user($id);
+        if (!$user) {
+            throw new \Exception('User not found Not', 404);
+        }
+
+        $page = get('page');
+        $perpage = 1;
+        $total = $this->model->get_count_orders($id);
+        $pagination = new Pagination($page, $perpage, $total);
+        $start = $pagination->getStart();
+
+        $orders = $this->model->get_user_orders($start, $perpage, $id);
+        $title = 'Профиль пользователя';
+        $this->setMeta("Админка :: {$title}");
+        $this->set(compact('title', 'user', 'pagination', 'total', 'orders'));
     }
 
     /**
