@@ -533,21 +533,53 @@ a.thumbnail.active, a.thumbnail:focus, a.thumbnail:hover {
 
 /* Product */
 
+.navbar .dropdown-menu .nav-link {
+    display: block;
+    padding: 8px 15px;
+    white-space: nowrap;
+}
+
+.navbar .dropdown-menu .nav-link:hover {
+    background-color: #ee6e73;
+    color: #fff !important;
+}
 
 /* https://bootstrap-menu.com/detail-basic-hover.html */
+/*@media all and (min-width: 992px) {*/
+/*    .navbar .nav-item .dropdown-menu{ display: none; }*/
+/*    .navbar .nav-item:hover .dropdown-menu{ display: block; }*/
+/*    .navbar .nav-item .dropdown-menu{ margin-top:0; }*/
+
+/*    .sidebar-toggler {*/
+/*        display: none;*/
+/*    }*/
+
+/*    .sidebar-toggle {*/
+/*        display: block !important;*/
+/*    }*/
+
+/*}*/
+
 @media all and (min-width: 992px) {
-    .navbar .nav-item .dropdown-menu{ display: none; }
-    .navbar .nav-item:hover .dropdown-menu{ display: block; }
-    .navbar .nav-item .dropdown-menu{ margin-top:0; }
-
-    .sidebar-toggler {
+    .navbar .nav-item .dropdown-menu {
         display: none;
+        margin-top: 0;
     }
 
-    .sidebar-toggle {
-        display: block !important;
+    .navbar .nav-item:hover > .dropdown-menu {
+        display: block;
     }
 
+    .navbar .dropdown-menu .nav-item {
+        position: relative;
+    }
+
+    .navbar .dropdown-menu .dropdown-menu {
+        position: absolute;
+        top: 0;
+        right: 100%;
+        left: auto;
+    }
 }
 
 @media only screen and (max-width : 767px) {

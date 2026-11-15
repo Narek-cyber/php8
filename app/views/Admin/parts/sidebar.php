@@ -1,8 +1,16 @@
+<?php
+$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$adminPath = rtrim(parse_url(ADMIN, PHP_URL_PATH), '/');
+
+$current = trim(substr($path, strlen($adminPath)), '/');
+$current = explode('/', $current)[0];
+?>
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="<?= PATH ?>" class="brand-link" target="_blank">
-        <img src="<?= PATH ?>/adminlte/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src="<?= PATH ?>/adminlte/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
+             class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a>
 
@@ -11,10 +19,12 @@
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="<?= PATH ?>/adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <img src="<?= PATH ?>/adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2"
+                     alt="User Image">
             </div>
             <div class="info">
-                <a href="<?= ADMIN ?>/user/edit?id=<?= $_SESSION['user']['id'] ?>" class="d-block"><?= h($_SESSION['user']['name']); ?></a>
+                <a href="<?= ADMIN ?>/user/edit?id=<?= $_SESSION['user']['id'] ?>"
+                   class="d-block"><?= h($_SESSION['user']['name']); ?></a>
                 <a href="<?= ADMIN ?>/user/logout" class="d-block">Logout</a>
             </div>
         </div>
@@ -37,55 +47,56 @@
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="<?= ADMIN ?>" class="nav-link">
+                    <a href="<?= ADMIN ?>" class="nav-link <?= $current === '' ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>Главная</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= ADMIN ?>/category" class="nav-link">
+                    <a href="<?= ADMIN ?>/category"
+                       class="nav-link <?= $current === 'category' ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-th"></i>
                         <p>Категории</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= ADMIN ?>/product" class="nav-link">
+                    <a href="<?= ADMIN ?>/product" class="nav-link <?= $current === 'product' ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-barcode"></i>
                         <p>Товары</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= ADMIN ?>/download" class="nav-link">
+                    <a href="<?= ADMIN ?>/download" class="nav-link <?= $current === 'download' ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-file-upload"></i>
                         <p>Файлы</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= ADMIN ?>/order" class="nav-link">
+                    <a href="<?= ADMIN ?>/order" class="nav-link <?= $current === 'order' ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-shopping-bag"></i>
                         <p>Заказы</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= ADMIN ?>/user" class="nav-link">
+                    <a href="<?= ADMIN ?>/user" class="nav-link <?= $current === 'user' ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-user-friends"></i>
                         <p>Пользователи</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= ADMIN ?>/cache" class="nav-link">
+                    <a href="<?= ADMIN ?>/cache" class="nav-link <?= $current === 'cache' ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-database"></i>
                         <p>Управление кэшем</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= ADMIN ?>/page" class="nav-link">
+                    <a href="<?= ADMIN ?>/page" class="nav-link <?= $current === 'page' ? 'active' : '' ?>">
                         <i class="nav-icon far fa-file-alt"></i>
                         <p>Страницы</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= ADMIN ?>/slider" class="nav-link">
+                    <a href="<?= ADMIN ?>/slider" class="nav-link <?= $current === 'slider' ? 'active' : '' ?>">
                         <i class="nav-icon far fa-image"></i>
                         <p>Слайдер</p>
                     </a>
